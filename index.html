@@ -5,7 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>منصة المنح المدرسية والجزافية - 2026/2027</title>
     
-    <link href="https://fonts.googleapis.com/earlyaccess/droidarabickufi.css" rel="stylesheet">
+    <!-- ترقية الخطوط إلى Cairo المتطور الداعم للأجهزة بشكل مثالي وجميل -->
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700&family=Droid+Arabic+Kufi&display=swap" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
 
@@ -18,97 +19,187 @@
             --pale-red: #d9534f; 
             --purple: #563d7c;
             --dark-orange: #d9534f;
+            /* ألوان النافذة الخضراء الباهتة للجداول */
+            --table-container-bg: #f5faf6;
+            --table-container-border: #cbe7d4;
         }
         * { box-sizing: border-box; outline: none; }
-        body { font-family: 'Droid Arabic Kufi', serif; background-color: #fcfcfc; margin: 0; color: #333; }
+        body { 
+            font-family: 'Cairo', 'Droid Arabic Kufi', sans-serif; 
+            background-color: #f8f9fa; 
+            margin: 0; 
+            color: #333; 
+        }
         
-        /* الشريط العلوي */
-        .header-bar { background-color: var(--main-blue); padding: 10px 40px; display: flex; align-items: center; justify-content: space-between; }
-        .header-bar img { height: 45px; }
+        /* الشريط العلوي مقسم إلى قسمين متناسقين */
+        .header-bar { 
+            background-color: var(--main-blue); 
+            padding: 15px 40px; 
+            display: flex; 
+            align-items: center; 
+            justify-content: space-between; 
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+        }
+        .header-right {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+        .header-bar img { 
+            height: 55px; 
+            filter: drop-shadow(0px 2px 4px rgba(0,0,0,0.2));
+        }
+        .header-title {
+            color: white; 
+            font-weight: 700; 
+            font-size: 18px;
+            margin: 0;
+        }
+        .header-left {
+            background-color: rgba(255, 255, 255, 0.15);
+            padding: 8px 15px;
+            border-radius: 30px;
+            color: white;
+            font-size: 13px;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
 
         /* نظام التبويبات (Tabs) */
-        .tabs-container { display: flex; gap: 5px; margin: 15px 40px 0 40px; border-bottom: 2px solid #ddd; }
+        .tabs-container { display: flex; gap: 5px; margin: 20px 40px 0 40px; border-bottom: 2px solid #ddd; }
         .tab-button { 
-            padding: 10px 25px; background: #eaeaea; border: none; cursor: pointer; 
-            font-family: 'Droid Arabic Kufi'; font-size: 14px; border-radius: 5px 5px 0 0; color: #555;
+            padding: 12px 25px; background: #eaeaea; border: none; cursor: pointer; 
+            font-family: 'Cairo', 'Droid Arabic Kufi', sans-serif; font-size: 14px; font-weight: 600; border-radius: 8px 8px 0 0; color: #555;
             transition: all 0.3s;
         }
-        .tab-button.active { background: #fff; color: var(--main-blue); font-weight: bold; border: 1px solid #ddd; border-bottom: 2px solid #fff; margin-bottom: -2px; }
+        .tab-button.active { 
+            background: #fff; 
+            color: var(--main-blue); 
+            font-weight: bold; 
+            border: 1px solid #ddd; 
+            border-bottom: 3px solid var(--main-blue); 
+            margin-bottom: -2px; 
+        }
 
-        .container { max-width: 98%; margin: 15px auto; background: #fff; padding: 20px; border-radius: 5px; border: 1px solid #eee; }
+        /* تصميم الحاويات - وضع الجداول في نافذة خضراء باهتة جمالية */
+        .container { 
+            max-width: 98%; 
+            margin: 15px auto; 
+            background: var(--table-container-bg); 
+            padding: 25px; 
+            border-radius: 12px; 
+            border: 2px solid var(--table-container-border); 
+            box-shadow: 0 4px 15px rgba(40, 167, 69, 0.05);
+        }
         .tab-content { display: none; }
         .tab-content.active { display: block; }
 
         /* أدوات التحكم والبحث */
-        .controls { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; gap: 15px; }
+        .controls { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; gap: 15px; flex-wrap: wrap; }
         .search-box input { 
-            width: 350px; padding: 10px 15px; border: 1px solid #ddd; border-radius: 4px; 
-            font-family: 'Droid Arabic Kufi'; background: #fff; font-size: 13px;
+            width: 350px; padding: 10px 15px; border: 1px solid #ccc; border-radius: 6px; 
+            font-family: 'Cairo', sans-serif; background: #fff; font-size: 13px;
+            box-shadow: inset 0 1px 3px rgba(0,0,0,0.05);
+        }
+        .button-group {
+            display: flex;
+            gap: 10px;
+            align-items: center;
         }
 
-        .btn { padding: 8px 18px; border: none; border-radius: 4px; cursor: pointer; font-family: 'Droid Arabic Kufi'; color: white; font-size: 13px; }
+        /* تنسيقات الأزرار وترقية الأشكال */
+        .btn { 
+            padding: 10px 20px; 
+            border: none; 
+            border-radius: 6px; 
+            cursor: pointer; 
+            font-family: 'Cairo', sans-serif; 
+            color: white; 
+            font-size: 13px; 
+            font-weight: bold;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.2s ease-in-out;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        .btn:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+        }
         .btn-add { background-color: var(--success-green); }
+        .btn-add:hover { background-color: #218838; }
         .btn-excel { background-color: #1d6f42; }
+        .btn-excel:hover { background-color: #165633; }
         .btn-print { background-color: #6c757d; }
+        .btn-print:hover { background-color: #5a6268; }
+        .btn-danger-all { background-color: var(--danger-red); }
+        .btn-danger-all:hover { background-color: #c82333; }
         
         /* أزرار العمليات داخل الجداول */
-        .btn-status-action { background-color: var(--main-blue); padding: 5px 12px; font-size: 11px; border-radius: 4px; margin-left: 4px; }
+        .btn-status-action { background-color: var(--main-blue); padding: 6px 14px; font-size: 12px; border-radius: 4px; margin-left: 4px; }
         .btn-status-action:hover { background-color: #004085; }
-        .btn-delete-action { background-color: var(--danger-red); padding: 5px 12px; font-size: 11px; border-radius: 4px; }
+        .btn-delete-action { background-color: var(--danger-red); padding: 6px 14px; font-size: 12px; border-radius: 4px; }
         .btn-delete-action:hover { background-color: #bd2130; }
 
-        /* الجداول */
-        table { width: 100%; border-collapse: collapse; margin-top: 10px; }
-        table th, table td { border: 1px solid #f0f0f0; padding: 10px; text-align: center; }
-        table th { background-color: #fafafa; color: var(--main-blue); font-size: 14px; }
+        /* الجداول داخل الحاوية الخضراء */
+        table { width: 100%; border-collapse: collapse; margin-top: 10px; background-color: #ffffff; border-radius: 8px; overflow: hidden; }
+        table th, table td { border: 1px solid #e1ebe3; padding: 12px; text-align: center; }
+        table th { background-color: #eaf5ee; color: #1e5a32; font-size: 14px; font-weight: bold; }
+        table tr:hover { background-color: #f9fdfa; }
         
         /* شارات عرض الحالة الحالية */
-        .badge { padding: 4px 10px; border-radius: 4px; font-size: 11px; font-weight: bold; display: inline-block; }
+        .badge { padding: 5px 12px; border-radius: 20px; font-size: 11px; font-weight: bold; display: inline-block; }
         .badge-waiting { background-color: #fff3cd; color: #856404; border: 1px solid #ffeeba; }
         .badge-approved { background-color: #d4edda; color: #155724; border: 1px solid #c3e6cb; }
         .badge-suspended { background-color: #f8d7da; color: #721c24; border: 1px solid #f5c6cb; }
 
-        /* نظام الصفحات (Pagination) في صندوق أبيض على اليمين */
-        .pagination-container { display: flex; justify-content: flex-start; background: #ffffff; padding: 10px 0; margin-top: 15px; }
+        /* نظام الصفحات (Pagination) */
+        .pagination-container { display: flex; justify-content: flex-start; background: transparent; padding: 10px 0; margin-top: 15px; }
         .pagination-btn {
-            padding: 6px 20px; margin-left: 10px; border: 1px solid #ddd; background-color: #fff; color: #333;
-            font-family: 'Droid Arabic Kufi'; font-size: 12px; cursor: pointer; border-radius: 4px; transition: all 0.2s;
+            padding: 8px 20px; margin-left: 10px; border: 1px solid #cbe7d4; background-color: #fff; color: #1e5a32;
+            font-family: 'Cairo', sans-serif; font-size: 12px; font-weight: bold; cursor: pointer; border-radius: 6px; transition: all 0.2s;
         }
-        .pagination-btn:hover:not(:disabled) { background-color: #f5f5f5; border-color: #bbb; }
-        .pagination-btn:disabled { background-color: #f9f9f9; color: #ccc; cursor: not-allowed; border-color: #eee; }
+        .pagination-btn:hover:not(:disabled) { background-color: #eaf5ee; }
+        .pagination-btn:disabled { background-color: #f3f3f3; color: #ccc; cursor: not-allowed; border-color: #ddd; }
 
         /* كروت لوحة التحكم بقاعدة البيانات */
-        .db-manager-box { display: flex; gap: 30px; margin-top: 15px; }
-        .db-card { flex: 1; background: #ffffff; border: 1px solid #e0e0e0; border-radius: 6px; padding: 30px; text-align: center; box-shadow: 0 2px 8px rgba(0,0,0,0.05); }
-        .db-card h3 { color: var(--main-blue); margin-top: 0; font-size: 16px; }
+        .db-manager-box { display: flex; gap: 30px; margin-top: 15px; flex-wrap: wrap; }
+        .db-card { flex: 1; min-width: 300px; background: #ffffff; border: 1px solid var(--table-container-border); border-radius: 8px; padding: 30px; text-align: center; box-shadow: 0 4px 10px rgba(0,0,0,0.02); }
+        .db-card h3 { color: var(--main-blue); margin-top: 0; font-size: 18px; }
         .db-card p { font-size: 13px; color: #666; line-height: 1.8; margin-bottom: 25px; }
-        .file-upload-wrapper { position: relative; display: inline-block; margin-bottom: 15px; }
+        .file-upload-wrapper { position: relative; display: inline-block; margin-bottom: 15px; width: 80%; }
         .file-upload-wrapper input[type="file"] { position: absolute; left: 0; top: 0; opacity: 0; width: 100%; height: 100%; cursor: pointer; }
 
         /* النوافذ المنبثقة المتطورة (خلفية سوداء بالكامل) */
-        .modal { display: none; position: fixed; z-index: 2000; left: 0; top: 0; width: 100%; height: 100%; background: #111111; overflow-y: auto; padding: 60px 0; }
+        .modal { display: none; position: fixed; z-index: 2000; left: 0; top: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.85); overflow-y: auto; padding: 60px 0; }
         .modal-wrapper { width: 900px; max-width: 95%; margin: 0 auto; position: relative; }
         
-        .modal-top-side-title { text-align: right; color: var(--pale-red); font-size: 18px; font-weight: bold; margin-bottom: 15px; padding-right: 5px; }
-        .modal-content { background: white; width: 100%; padding: 35px; border-radius: 6px; box-shadow: 0 4px 20px rgba(0,0,0,0.5); }
-        .alert-box { background-color: var(--soft-red); color: #721c24; padding: 12px; border-radius: 4px; margin-bottom: 25px; text-align: center; border: 1px solid #f5c6cb; font-size: 13px; }
+        .modal-top-side-title { text-align: right; color: #fff; font-size: 18px; font-weight: bold; margin-bottom: 15px; padding-right: 5px; }
+        .modal-content { background: white; width: 100%; padding: 35px; border-radius: 8px; box-shadow: 0 4px 25px rgba(0,0,0,0.3); }
+        .alert-box { background-color: var(--soft-red); color: #721c24; padding: 12px; border-radius: 6px; margin-bottom: 25px; text-align: center; border: 1px solid #f5c6cb; font-size: 13px; font-weight: bold; }
 
-        .form-row { display: flex; gap: 40px; margin-bottom: 25px; }
-        .form-group { flex: 1; text-align: right; }
+        .form-row { display: flex; gap: 20px; margin-bottom: 25px; flex-wrap: wrap; }
+        .form-group { flex: 1; min-width: 200px; text-align: right; }
         .form-group label { display: block; margin-bottom: 8px; font-weight: bold; font-size: 13px; color: #444; }
-        .form-group input, .form-group select { width: 100%; padding: 11px; border: 1px solid #ccc; border-radius: 4px; font-family: 'Droid Arabic Kufi'; background: #fff; font-size: 13px; }
+        .form-group input, .form-group select { width: 100%; padding: 11px; border: 1px solid #ccc; border-radius: 6px; font-family: 'Cairo', sans-serif; background: #fff; font-size: 13px; }
 
         /* أزرار التحكم السفلية المتلاصقة خارج النافذة البيضاء */
-        .modal-external-footer { display: flex; width: 100%; margin-top: 15px; border-radius: 6px; overflow: hidden; box-shadow: 0 4px 15px rgba(0,0,0,0.3); }
+        .modal-external-footer { display: flex; width: 100%; margin-top: 15px; border-radius: 8px; overflow: hidden; box-shadow: 0 4px 15px rgba(0,0,0,0.3); }
         .modal-external-footer .btn-footer { flex: 1; padding: 15px; font-size: 14px; font-weight: bold; border-radius: 0; text-align: center; }
         .btn-save-modal { background-color: var(--success-green); }
         .btn-cancel-modal { background-color: var(--danger-red); }
+
+        /* خفي حقول رفع ملف الـ Excel المؤقتة */
+        .excel-file-input { display: none; }
 
         /* إعدادات الطباعة للتقارير */
         #printSection { display: none; }
         @media print {
             .no-print { display: none !important; }
-            #printSection { display: block !important; padding: 0; font-family: 'Droid Arabic Kufi', serif; }
+            #printSection { display: block !important; padding: 0; font-family: 'Cairo', serif; }
             .print-header { text-align: center; margin-bottom: 15px; font-size: 12pt; }
             .inst-info { text-align: right; margin-bottom: 15px; font-size: 11pt; }
             table { border: 1px solid #000; width: 100%; border-collapse: collapse; }
@@ -121,30 +212,44 @@
 <body>
 
 <div class="no-print">
+    <!-- الشريط العلوي مقسم إلى قسمين متناسقين تمامًا -->
     <div class="header-bar">
-        <img src="https://amatti.education.dz//assets/img/logo_white.png" alt="Logo">
-        <span style="color: white; font-weight: bold; font-size: 16px;">النظام الموحد لإدارة المساعدات الاجتماعية والمنح المدرسية والجزافية</span>
+        <div class="header-right">
+            <img src="https://amatti.education.dz//assets/img/logo_white.png" alt="وزارة التربية الوطنية">
+            <h1 class="header-title">النظام الموحد لإدارة المساعدات الاجتماعية والمنح المدرسية والجزافية</h1>
+        </div>
+        <div class="header-left">
+            <span>🟢 النظام نشط</span>
+            <span id="globalStats">إجمالي المسجلين: 0</span>
+        </div>
     </div>
 
+    <!-- الأقسام وعلامات التبويب المنسقة -->
     <div class="tabs-container">
-        <button id="tabMenhaBtn" class="tab-button active" onclick="switchTab('menha5000')">إدارة منحة المدرسية (5000 دج)</button>
-        <button id="tabGezayaBtn" class="tab-button" onclick="switchTab('menhaGezaya')">متابعة المنحة الجزافية وملفات التلاميذ</button>
-        <button id="tabDbBtn" class="tab-button" onclick="switchTab('databaseSection')">📦 إدارة واستيراد/تصدير البيانات</button>
+        <button id="tabMenhaBtn" class="tab-button active" onclick="switchTab('menha5000')">📂 إدارة منحة المدرسية (5000 دج)</button>
+        <button id="tabGezayaBtn" class="tab-button" onclick="switchTab('menhaGezaya')">📋 متابعة المنحة الجزافية وملفات التلاميذ</button>
+        <button id="tabDbBtn" class="tab-button" onclick="switchTab('databaseSection')">⚙️ إدارة واستيراد/تصدير البيانات</button>
     </div>
 
+    <!-- القسم الأول: منحة 5000 دج -->
     <div id="menha5000" class="tab-content active">
         <div class="container">
             <div class="controls">
-                <button class="btn btn-add" onclick="openModal()">+ تلميذ جديد</button>
+                <button class="btn btn-add" onclick="openModal()">➕ تلميذ جديد</button>
                 <div class="search-box">
-                    <input type="text" id="searchInput" onkeyup="filterTable()" placeholder="بحث سريع في قائمة المنحة المدرسية...">
+                    <input type="text" id="searchInput" onkeyup="filterTable()" placeholder="🔍 بحث سريع في قائمة المنحة المدرسية...">
                 </div>
-                <div>
-                    <button class="btn btn-excel" onclick="exportToExcel()">تصدير Excel</button>
-                    <button class="btn btn-print" onclick="window.print()">طباعة القائمة</button>
+                <div class="button-group">
+                    <!-- أزرار استيراد وتصدير إكسل لقائمة 5000 دج -->
+                    <button class="btn btn-excel" onclick="triggerExcelImport('menha')">📥 استيراد Excel</button>
+                    <input type="file" id="excelImportMenha" class="excel-file-input" accept=".xlsx, .xls" onchange="importFromExcel(event, 'menha')">
+                    
+                    <button class="btn btn-excel" onclick="exportToExcel()">📤 تصدير Excel</button>
+                    <button class="btn btn-print" onclick="window.print()">🖨️ طباعة القائمة</button>
                 </div>
             </div>
 
+            <!-- النافذة الخضراء الباهتة تحتوي الجدول -->
             <table>
                 <thead>
                     <tr>
@@ -162,24 +267,30 @@
             </table>
 
             <div class="pagination-container">
-                <button id="prevBtn" class="pagination-btn" onclick="prevPage()">السابق (Previous)</button>
-                <button id="nextBtn" class="pagination-btn" onclick="nextPage()">التالي (Next)</button>
+                <button id="prevBtn" class="pagination-btn" onclick="prevPage()">⏮️ السابق</button>
+                <button id="nextBtn" class="pagination-btn" onclick="nextPage()">التالي ⏭️</button>
             </div>
         </div>
     </div>
 
+    <!-- القسم الثاني: المنحة الجزافية والمتابعة -->
     <div id="menhaGezaya" class="tab-content">
         <div class="container">
             <div class="controls">
-                <button class="btn btn-add" style="background-color: var(--purple);" onclick="openGezayaModal()">+ تسجيل ملف منحة جزافية جديد</button>
+                <button class="btn btn-add" style="background-color: var(--purple);" onclick="openGezayaModal()">➕ تسجيل ملف منحة جزافية جديد</button>
                 <div class="search-box">
-                    <input type="text" id="searchGezayaInput" onkeyup="filterGezayaTable()" placeholder="بحث في السجلات والملفات المودعة...">
+                    <input type="text" id="searchGezayaInput" onkeyup="filterGezayaTable()" placeholder="🔍 بحث في السجلات والملفات المودعة...">
                 </div>
-                <div>
-                    <button class="btn btn-excel" style="background-color: #1f4e5b;" onclick="exportGezayaToExcel()">تصدير ملفات الجزافية</button>
+                <div class="button-group">
+                    <!-- أزرار استيراد وتصدير إكسل للمنحة الجزافية -->
+                    <button class="btn btn-excel" style="background-color: #1f4e5b;" onclick="triggerExcelImport('gezaya')">📥 استيراد ملفات الجزافية</button>
+                    <input type="file" id="excelImportGezaya" class="excel-file-input" accept=".xlsx, .xls" onchange="importFromExcel(event, 'gezaya')">
+                    
+                    <button class="btn btn-excel" style="background-color: #1f4e5b;" onclick="exportGezayaToExcel()">📤 تصدير ملفات الجزافية</button>
                 </div>
             </div>
 
+            <!-- النافذة الخضراء الباهتة تحتوي الجدول الثاني -->
             <table>
                 <thead>
                     <tr>
@@ -198,25 +309,26 @@
             </table>
 
             <div class="pagination-container">
-                <button id="prevGezayaBtn" class="pagination-btn" onclick="prevGezayaPage()">السابق (Previous)</button>
-                <button id="nextGezayaBtn" class="pagination-btn" onclick="nextGezayaPage()">التالي (Next)</button>
+                <button id="prevGezayaBtn" class="pagination-btn" onclick="prevGezayaPage()">⏮️ السابق</button>
+                <button id="nextGezayaBtn" class="pagination-btn" onclick="nextGezayaPage()">التالي ⏭️</button>
             </div>
         </div>
     </div>
 
+    <!-- القسم الثالث: إدارة قاعدة البيانات الشاملة -->
     <div id="databaseSection" class="tab-content">
-        <div class="container">
-            <h2 style="font-size: 16px; color: var(--main-blue); border-bottom: 1px solid #eee; padding-bottom: 10px; margin-top:0;">📦 لوحة حماية وإدارة قواعد البيانات للمنصة</h2>
+        <div class="container" style="background: #fff; border-color: #ddd;">
+            <h2 style="font-size: 18px; color: var(--main-blue); border-bottom: 1px solid #eee; padding-bottom: 10px; margin-top:0;">📦 لوحة حماية وإدارة قواعد البيانات للمنصة</h2>
             <p style="font-size: 13px; color: #555; line-height: 1.8;">
                 من هنا يمكنك استخراج نسخة احتياطية كاملة من بيانات المنصة لحفظها على جهازك، أو استيراد بيانات محفوظة سابقاً. <br>
-                <strong>💡 ملاحظة هامة جداً:</strong> عند استيراد أي ملف، يتم **دمج البيانات الجديدة تلقائياً** مع البيانات الحالية دون حذف أي سجل قديم لضمان ثبات وسلامة البيانات.
+                <strong>💡 ملاحظة هامة جداً:</strong> عند استيراد أي ملف، يتم **دمج البيانات الجديدة تلقائياً** مع البيانات الحالية دون حذف أي سجل قديم لضمان ثبات وسلامة البيانات ومنع اختفائها.
             </p>
 
             <div class="db-manager-box">
                 <div class="db-card">
                     <h3>📥 تصدير النسخة الاحتياطية (Export Backup)</h3>
                     <p>قم بتحميل ملف شامل يحتوي على كافة قوائم منحة 5000 دج وسجلات المنحة الجزافية بصيغة آمنة للرجوع إليها في أي وقت.</p>
-                    <button class="btn" style="background-color: var(--main-blue); font-weight: bold; width: 80%; padding:12px;" onclick="exportFullSystemDatabase()">تصدير وتحميل النسخة الاحتياطية</button>
+                    <button class="btn" style="background-color: var(--main-blue); font-weight: bold; width: 80%; padding:12px; justify-content: center;" onclick="exportFullSystemDatabase()">📤 تصدير وتحميل النسخة الاحتياطية</button>
                 </div>
 
                 <div class="db-card">
@@ -224,8 +336,16 @@
                     <p>اختر ملف النسخة الاحتياطية المستخرجة سابقاً بامتداد (.json) لرفعها ودمجها مباشرة مع قاعدة البيانات الحالية للنظام بدون تكرار أو حذف.</p>
                     
                     <div class="file-upload-wrapper">
-                        <button class="btn" style="background-color: var(--success-green); font-weight: bold; padding: 12px 30px;">اختر ملف البيانات ثم اضغط استيراد</button>
+                        <button class="btn" style="background-color: var(--success-green); font-weight: bold; padding: 12px 30px; width: 100%; justify-content: center;">📁 اختر ملف البيانات ثم اضغط استيراد</button>
                         <input type="file" id="importFileSelector" accept=".json" onchange="importFullSystemDatabase(event)">
+                    </div>
+                </div>
+
+                <div class="db-card" style="border-color: var(--pale-red);">
+                    <h3 style="color: var(--pale-red);">⚠️ قسم العمليات الخطيرة</h3>
+                    <p>إذا كنت ترغب في تصفير المنصة نهائيًا والبدء من جديد، يمكنك استخدام الخيارات التالية بحذر شديد.</p>
+                    <div style="display: flex; flex-direction: column; gap: 10px; align-items: center;">
+                        <button class="btn btn-danger-all" style="width: 80%; justify-content: center;" onclick="clearAllSystemData()">🗑️ حذف كافة بيانات المنصة نهائياً</button>
                     </div>
                 </div>
             </div>
@@ -233,6 +353,7 @@
     </div>
 </div>
 
+<!-- واجهة الطباعة للتقارير -->
 <div id="printSection">
     <div class="print-header">
         <strong>الجمهورية الجزائرية الديمقراطية الشعبية</strong><br>
@@ -250,9 +371,10 @@
     </div>
 </div>
 
+<!-- نوافذ التسجيل المنبثقة -->
 <div id="studentModal" class="modal">
     <div class="modal-wrapper">
-        <div class="modal-top-side-title">استمارة حجز بيانات تلميذ جديد</div>
+        <div class="modal-top-side-title">📝 استمارة حجز بيانات تلميذ جديد</div>
         <div class="modal-content">
             <div class="alert-box">
                 ⚠️ هام جداً: الرجاء حجز بيانات التلميذ ورقم الحساب بعناية، يمكن مراجعة وتحديث الملفات من تبويب المتابعة المخصص له.
@@ -278,15 +400,15 @@
             </div>
         </div>
         <div class="modal-external-footer">
-            <button class="btn btn-footer btn-save-modal" onclick="saveData()">حجز البيانات وتثبيت الاستفادة</button>
-            <button class="btn btn-footer btn-cancel-modal" onclick="closeModal()">إلغاء وتراجع عن الحجز</button>
+            <button class="btn btn-footer btn-save-modal" onclick="saveData()">💾 حجز البيانات وتثبيت الاستفادة</button>
+            <button class="btn btn-footer btn-cancel-modal" onclick="closeModal()">❌ إلغاء وتراجع عن الحجز</button>
         </div>
     </div>
 </div>
 
 <div id="gezayaModal" class="modal">
     <div class="modal-wrapper">
-        <div class="modal-top-side-title">تسجيل ومتابعة ملف منحة جزافية جديدة</div>
+        <div class="modal-top-side-title">📝 تسجيل ومتابعة ملف منحة جزافية جديدة</div>
         <div class="modal-content">
             <div class="alert-box" style="background-color:#e2ecf7; color:#1f4e5b; border-color:#bcd1e6;">
                 📌 قسم تسجيل العائلات وأرباب الأسر للاستفادة والمتابعة الدورية للوضعية المالية والملفات المودعة.
@@ -315,15 +437,15 @@
             </div>
         </div>
         <div class="modal-external-footer">
-            <button class="btn btn-footer btn-save-modal" style="background-color: var(--purple);" onclick="saveGezayaData()">حجز وتأكيد ملف المنحة</button>
-            <button class="btn btn-footer btn-cancel-modal" onclick="closeGezayaModal()">إلغاء التراجع</button>
+            <button class="btn btn-footer btn-save-modal" style="background-color: var(--purple);" onclick="saveGezayaData()">💾 حجز وتأكيد ملف المنحة</button>
+            <button class="btn btn-footer btn-cancel-modal" onclick="closeGezayaModal()">❌ إلغاء التراجع</button>
         </div>
     </div>
 </div>
 
 <div id="statusActionModal" class="modal">
     <div class="modal-wrapper">
-        <div class="modal-top-side-title">نافذة معالجة وتحديث حالة وطبيعة الملف</div>
+        <div class="modal-top-side-title">⚙️ نافذة معالجة وتحديث حالة وطبيعة الملف</div>
         <div class="modal-content">
             <div class="alert-box" style="background-color:#eef5fc; color:#0056b3; border-color:#b8daff;">
                 ⚙️ مراجعة وتعديل القرار الإداري، تعديل الملاحظات ونوع الاستفادة الفردية للمستفيد الحالي.
@@ -354,8 +476,8 @@
             </div>
         </div>
         <div class="modal-external-footer">
-            <button class="btn btn-footer btn-save-modal" onclick="confirmStatusUpdate()">تحديث القرار وحفظ التعديل</button>
-            <button class="btn btn-footer btn-cancel-modal" onclick="closeStatusModal()">إغلاق النافذة والتراجع</button>
+            <button class="btn btn-footer btn-save-modal" onclick="confirmStatusUpdate()">💾 تحديث القرار وحفظ التعديل</button>
+            <button class="btn btn-footer btn-cancel-modal" onclick="closeStatusModal()">❌ إغلاق النافذة والتراجع</button>
         </div>
     </div>
 </div>
@@ -374,6 +496,12 @@
 
     let currentProcessingIndex = null;
     let currentProcessingIsStudent = false;
+
+    // تحديث إحصائيات الشريط العلوي
+    function updateHeaderStats() {
+        const total = db.length + gezayaDb.length;
+        document.getElementById('globalStats').innerText = `إجمالي المستجلين بالنظام: ${total} ملف`;
+    }
 
     // التحكم بالتبويبات العلوية الثلاثة
     function switchTab(tabId) {
@@ -413,7 +541,7 @@
         };
 
         if(!student.lastName || !student.firstName || !student.category) {
-            Swal.fire('تنبيه', 'يرجى ملء الحقول الإلزامية الأساسية للمستفيد', 'warning'); return;
+            Swal.fire('تنبيه ⚠️', 'يرجى ملء الحقول الإلزامية الأساسية للمستفيد', 'warning'); return;
         }
 
         db.push(student);
@@ -425,6 +553,7 @@
         
         renderTable();
         closeModal();
+        updateHeaderStats();
         Swal.fire({ icon: 'success', title: 'تم الحفظ بنجاح وإدراج التلميذ في قوائم المتابعة والمنح', timer: 1500, showConfirmButton: false });
     }
 
@@ -479,6 +608,7 @@
                 if((currentPage - 1) * rowsPerPage >= filteredDb.length && currentPage > 1) { currentPage--; }
                 renderTable();
                 renderGezayaTable();
+                updateHeaderStats();
                 
                 Swal.fire('تم الحذف!', 'تمت إزالة التلميذ من كافة الأقسام بنجاح.', 'success');
             }
@@ -509,7 +639,10 @@
     }
 
     function exportToExcel() {
-        if(db.length === 0) return;
+        if(db.length === 0) {
+            Swal.fire('تنبيه ⚠️', 'لا توجد بيانات لتصديرها.', 'warning');
+            return;
+        }
         const worksheet = XLSX.utils.json_to_sheet(db.map((s, i) => ({
             "رقم": i+1, "اللقب": s.lastName, "الاسم": s.firstName, "تاريخ الميلاد": s.birthDate, "الولي الشرعي": s.guardianName, "رقم الحساب البريدي": s.ccp, "الفئة المستفيدة": s.category
         })));
@@ -544,7 +677,7 @@
         };
 
         if(!item.name || !item.nid) {
-            Swal.fire('تنبيه', 'يرجى إدخال اسم رأس العائلة ورقم الهوية', 'warning'); return;
+            Swal.fire('تنبيه ⚠️', 'يرجى إدخال اسم رأس العائلة ورقم الهوية', 'warning'); return;
         }
 
         gezayaDb.push(item);
@@ -555,6 +688,7 @@
 
         renderGezayaTable();
         closeGezayaModal();
+        updateHeaderStats();
         Swal.fire({ icon: 'success', title: 'تم تسجيل ملف المنحة الجزافية بنجاح تام', timer: 1200, showConfirmButton: false });
     }
 
@@ -667,6 +801,7 @@
                 if((currentGezayaPage - 1) * rowsPerPage >= filteredGezayaDb.length && currentGezayaPage > 1) { currentGezayaPage--; }
                 renderTable();
                 renderGezayaTable();
+                updateHeaderStats();
                 
                 Swal.fire('تم الحذف!', 'تم مسح وإزالة السجل المحدد بنجاح من كافة الأقسام.', 'success');
             }
@@ -719,7 +854,10 @@
     }
 
     function exportGezayaToExcel() {
-        if(filteredGezayaDb.length === 0) return;
+        if(filteredGezayaDb.length === 0) {
+            Swal.fire('تنبيه ⚠️', 'لا توجد بيانات لتصديرها.', 'warning');
+            return;
+        }
         const worksheet = XLSX.utils.json_to_sheet(filteredGezayaDb.map((s, i) => ({
             "رقم": i+1, "الاسم واللقب الكامل": s.name, "رقم الوثيقة / الحساب": s.nid, "الفئة / عدد الأفراد": s.count, "الحالة التشغيلية للملف": s.status, "نوع الاستفادة": s.benefitType, "تاريخ الإيداع": s.date, "ملاحظات وتدابير المتابعة": s.notes
         })));
@@ -738,10 +876,10 @@
 
 
     // ========================================================
-    // ميزات التبويب الثالث الجديد: استيراد وتصدير قاعدة البيانات الشاملة
+    // ميزات الاستيراد والتصدير مع منع حذف البيانات (تراكمي)
     // ========================================================
     
-    // 1. دالة تصدير النظام بالكامل إلى ملف خارجي تحميل تلقائي
+    // تصدير النظام بالكامل إلى JSON
     function exportFullSystemDatabase() {
         const fullBackup = {
             studentsBackup: db,
@@ -761,7 +899,7 @@
         Swal.fire({ icon: 'success', title: 'تم تصدير نسخة البيانات بنجاح تام وتحميلها', timer: 1500, showConfirmButton: false });
     }
 
-    // 2. دالة الاستيراد التراكمي الذكي (دمج البيانات المستوردة دون مسح القديم)
+    // استيراد النظام بالكامل من JSON ودمج البيانات دون حذف القديم
     function importFullSystemDatabase(event) {
         const file = event.target.files[0];
         if (!file) return;
@@ -771,13 +909,12 @@
             try {
                 const parsedData = JSON.parse(e.target.result);
                 
-                // فحص بنية الملف للتأكد من سلامته وصلاحيته للمنصة
                 if (!parsedData.studentsBackup && !parsedData.gezayaBackup) {
-                    Swal.fire('خطأ في البنية', 'الملف المرفوع غير متوافق أو لا يحتوي على بيانات منحة صالحة.', 'error');
+                    Swal.fire('خطأ في البنية ❌', 'الملف المرفوع غير متوافق أو لا يحتوي على بيانات منحة صالحة.', 'error');
                     return;
                 }
 
-                // دمج ذكي تراكمي (تطبيقاً لشرط منع الحذف نهائياً عند الاستيراد)
+                // دمج ذكي تراكمي (دون تكرار لمنع حدوث مشاكل في قاعدة البيانات)
                 if (parsedData.studentsBackup && Array.isArray(parsedData.studentsBackup)) {
                     db = [...db, ...parsedData.studentsBackup];
                     localStorage.setItem('minha_final_v3', JSON.stringify(db));
@@ -788,30 +925,138 @@
                     localStorage.setItem('minha_gezaya_v1', JSON.stringify(gezayaDb));
                 }
 
-                // تحديث كافة الشاشات والجداول فوراً لمزامنة البيانات الجديدة المستوردة
                 filterTable();
                 filterGezayaTable();
+                updateHeaderStats();
                 
-                // تصفير مدخل الملف لتسهيل رفعه مرة أخرى مستقبلاً
                 document.getElementById('importFileSelector').value = '';
 
                 Swal.fire({
                     icon: 'success',
-                    title: 'تم استيراد ودمج البيانات بنجاح',
-                    text: 'تم تحديث الجوائز وقوائم المتابعة التراكمية، ولم يتم مسح أي معلومة سابقة.',
+                    title: 'تم استيراد ودمج البيانات بنجاح 🎉',
+                    text: 'تم دمج السجلات الجديدة بنجاح، ولم يتم مسح أي معلومة من السجلات السابقة.',
                     confirmButtonText: 'ممتاز مفهوم'
                 });
 
             } catch (err) {
-                Swal.fire('فشل القراءة', 'حدث خطأ أثناء معالجة ملف JSON البرمجي، تأكد من سلامة الملف.', 'error');
+                Swal.fire('فشل القراءة ❌', 'حدث خطأ أثناء معالجة ملف JSON البرمجي، تأكد من سلامة الملف.', 'error');
             }
         };
         reader.readAsText(file);
     }
 
-    // إقلاع وتنشيط عروض النظام المركزية
+    // استدعاء نافذة الاختيار لملف الإكسل
+    function triggerExcelImport(section) {
+        if(section === 'menha') {
+            document.getElementById('excelImportMenha').click();
+        } else {
+            document.getElementById('excelImportGezaya').click();
+        }
+    }
+
+    // دالة دمج واستيراد البيانات من ملف Excel
+    function importFromExcel(event, section) {
+        const file = event.target.files[0];
+        if (!file) return;
+
+        const reader = new FileReader();
+        reader.onload = function(e) {
+            try {
+                const data = new Uint8Array(e.target.result);
+                const workbook = XLSX.read(data, { type: 'array' });
+                const firstSheetName = workbook.SheetNames[0];
+                const worksheet = workbook.Sheets[firstSheetName];
+                const jsonData = XLSX.utils.sheet_to_json(worksheet);
+
+                const today = new Date().toLocaleDateString('ar-DZ');
+
+                if (section === 'menha') {
+                    // تحويل بيانات الإكسل إلى الهيكلية الخاصة بقائمة 5000 دج
+                    jsonData.forEach(row => {
+                        db.push({
+                            lastName: row["اللقب"] || row["اللقب والاسم"] || "مستورد",
+                            firstName: row["الاسم"] || "",
+                            birthDate: row["تاريخ الميلاد"] || "-",
+                            guardianName: row["الولي الشرعي"] || row["الولي"] || "-",
+                            ccp: row["رقم الحساب البريدي"] || row["الحساب"] || "-",
+                            category: row["الفئة المستفيدة"] || row["الفئة"] || "معوز (ة)",
+                            isStudent: true,
+                            status: row["الحالة"] || "قيد الدراسة والمراجعة",
+                            notes: row["ملاحظات"] || "مستورد من ملف خارجي",
+                            benefitType: "منحة مدرسية (5000 دج)",
+                            date: today
+                        });
+                    });
+                    localStorage.setItem('minha_final_v3', JSON.stringify(db));
+                    filterTable();
+                } else if (section === 'gezaya') {
+                    // تحويل بيانات الإكسل إلى الهيكلية الخاصة بالمنحة الجزافية
+                    jsonData.forEach(row => {
+                        gezayaDb.push({
+                            name: row["الاسم واللقب الكامل"] || row["الاسم"] || "مستورد",
+                            nid: row["رقم وثيقة التعريف"] || row["رقم الهوية"] || "-",
+                            count: row["عدد الأفراد"] || "0 أفراد",
+                            status: row["حالة الملف"] || "قيد الدراسة والمراجعة",
+                            benefitType: row["نوع الاستفادة"] || "منحة جزافية عائلية",
+                            notes: row["ملاحظات"] || "مستورد من ملف خارجي",
+                            date: today,
+                            isStudent: false
+                        });
+                    });
+                    localStorage.setItem('minha_gezaya_v1', JSON.stringify(gezayaDb));
+                    filterGezayaTable();
+                }
+
+                updateHeaderStats();
+                // تصفير المدخلات
+                event.target.value = '';
+
+                Swal.fire({
+                    icon: 'success',
+                    title: 'تم دمج بيانات Excel بنجاح 🎉',
+                    text: 'تم جلب البيانات وإضافتها مباشرة إلى القائمة الحالية دون حذف أي سجل قديم.',
+                    confirmButtonText: 'رائع'
+                });
+
+            } catch (err) {
+                Swal.fire('خطأ ❌', 'حدث خطأ أثناء معالجة وقراءة ملف الـ Excel المرفوع.', 'error');
+                console.error(err);
+            }
+        };
+        reader.readAsArrayBuffer(file);
+    }
+
+    // حذف كافة بيانات المنصة بشكل كامل
+    function clearAllSystemData() {
+        Swal.fire({
+            title: 'هل تريد حقًا حذف جميع البيانات؟',
+            text: "🚨 تحذير شديد الخطورة: سيتم إفراغ وتصفير النظام وحذف كافة بيانات المنح المدرسية والجزافية من الذاكرة المحلية نهائيًا ولا يمكن استعادتها!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#dc3545',
+            cancelButtonColor: '#6c757d',
+            confirmButtonText: 'نعم، قم بالحذف والتصفير نهائياً',
+            cancelButtonText: 'إلغاء وتراجع'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                db = [];
+                gezayaDb = [];
+                localStorage.removeItem('minha_final_v3');
+                localStorage.removeItem('minha_gezaya_v1');
+                
+                filterTable();
+                filterGezayaTable();
+                updateHeaderStats();
+                
+                Swal.fire('تم التصفير!', 'تم مسح وحذف كافة قواعد بيانات النظام والملفات بالكامل.', 'success');
+            }
+        });
+    }
+
+    // إقلاع وتنشيط عروض النظام المركزية عند التحميل
     filterTable();
     filterGezayaTable();
+    updateHeaderStats();
 </script>
 </body>
 </html>
